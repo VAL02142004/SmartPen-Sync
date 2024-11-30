@@ -103,8 +103,8 @@
  </head>
  <body>
   <div class="search-bar">
-   <input placeholder="Search" type="text"/>
-   <button>
+   <input id="searchInput" onkeyup="searchFolders()" placeholder="Search" type="text"/>
+   <button onclick="searchFolders()">
     <i class="fas fa-search">
     </i>
    </button>
@@ -113,11 +113,11 @@
     </i>
     <div class="dropdown" id="dropdownMenu">
      <a href="#" onclick="openSetting()">
-      <img alt="Settings icon" height="20" src="SmartPen-Sync/asset/SEtting.png" width="20"/>
-      SETTING   
+      <img alt="Settings icon" height="20" src="https://storage.googleapis.com/a1aa/image/14OrNd47G15iGxSpROCKisGSz8OeOIEj6BrtryctwrofOH2TA.jpg" width="20"/>
+      SETTING
      </a>
      <a href="#" onclick="openProfile()">
-      <img alt="Profile icon" height="20" src="SmartPen-Sync/asset/PROfile.png" width="20"/>
+      <img alt="Profile icon" height="20" src="https://storage.googleapis.com/a1aa/image/0RNHiAhHSyZdI1kvPjTitKx532lT2ZzmQ5m3N9pJOsWvzh9E.jpg" width="20"/>
       PROFILE
      </a>
      <a href="#" onclick="logout()">
@@ -192,6 +192,22 @@
                 gridContainer.appendChild(newFolder);
             } else {
                 alert("Please enter a folder name");
+            }
+        }
+
+        function searchFolders() {
+            var input, filter, gridContainer, gridItems, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            gridContainer = document.getElementById("gridContainer");
+            gridItems = gridContainer.getElementsByClassName("grid-item");
+            for (i = 0; i < gridItems.length; i++) {
+                txtValue = gridItems[i].textContent || gridItems[i].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    gridItems[i].style.display = "";
+                } else {
+                    gridItems[i].style.display = "none";
+                }
             }
         }
 
