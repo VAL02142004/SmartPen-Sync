@@ -1,46 +1,69 @@
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   Folder Example
-  </title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <style>
-   body {
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Folder Example</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <style>
+        body {
             font-family: Arial, sans-serif;
             text-align: center;
             background-color: #fff;
             margin: 0;
             padding: 0;
         }
-        .search-bar {
+        .header {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            margin: 20px 0;
+            padding: 10px;
+            border-bottom: 2px solid #ff7f50;
+        }
+        .search-bar {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            border: 2px solid #ff7f50;
+            border-radius: 25px;
+            padding: 5px 10px;
         }
         .search-bar input {
-            padding: 10px;
-            border: 2px solid #ff7f50;
-            border-radius: 20px 0 0 20px;
+            border: none;
             outline: none;
+            flex: 1;
+            padding: 5px;
         }
-        .search-bar button {
-            padding: 10px;
-            border: 2px solid #ff7f50;
-            border-left: none;
-            background-color: #ff7f50;
-            color: white;
-            border-radius: 0 20px 20px 0;
-            cursor: pointer;
-        }
-        .search-bar button i {
-            font-size: 16px;
+        .search-bar i {
+            color: #ff7f50;
         }
         .menu-icon {
             margin-left: 10px;
+            color: #ff7f50;
+            font-size: 24px;
             cursor: pointer;
+        }
+        .menu {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 10px;
+            background-color: white;
+            border: 2px solid #ff7f50;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .menu a {
+            display: block;
+            padding: 10px;
+            color: #ff7f50;
+            text-decoration: none;
+            border-bottom: 1px solid #ff7f50;
+        }
+        .menu a:last-child {
+            border-bottom: none;
+        }
+        .menu a:hover {
+            background-color: #ffe4c4;
         }
         .grid-container {
             display: grid;
@@ -99,62 +122,45 @@
         .menu-icon:hover + .dropdown, .dropdown:hover {
             display: block;
         }
-  </style>
- </head>
- <body>
-  <div class="search-bar">
-   <input id="searchInput" onkeyup="searchFolders()" placeholder="Search" type="text"/>
-   <button onclick="searchFolders()">
-    <i class="fas fa-search">
-    </i>
-   </button>
-   <div class="menu-icon" onclick="toggleDropdown()">
-    <i class="fas fa-bars">
-    </i>
-    <div class="dropdown" id="dropdownMenu">
-     <a href="#" onclick="openSetting()">
-      <img alt="Settings icon" height="20" src="https://storage.googleapis.com/a1aa/image/14OrNd47G15iGxSpROCKisGSz8OeOIEj6BrtryctwrofOH2TA.jpg" width="20"/>
-      SETTING
-     </a>
-     <a href="#" onclick="openProfile()">
-      <img alt="Profile icon" height="20" src="https://storage.googleapis.com/a1aa/image/0RNHiAhHSyZdI1kvPjTitKx532lT2ZzmQ5m3N9pJOsWvzh9E.jpg" width="20"/>
-      PROFILE
-     </a>
-     <a href="#" onclick="logout()">
-      Log out
-     </a>
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="search-bar">
+            <input placeholder="Search" type="text"/>
+            <button>
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+        <div class="menu-icon" onclick="toggleDropdown()">
+            <i class="fas fa-bars"></i>
+            <div class="dropdown" id="dropdownMenu">
+                <a href="#" onclick="openSetting()">
+                    <img alt="Settings icon" height="20" src="SmartPen-Sync/asset/SEtting.png" width="20"/>
+                    SETTING
+                </a>
+                <a href="#" onclick="openProfile()">
+                    <img alt="Profile icon" height="20" src="SmartPen-Sync/asset/PROfile.png" width="20"/>
+                    PROFILE
+                </a>
+                <a href="#" onclick="logout()">Log out</a>
+            </div>
+        </div>
     </div>
-   </div>
-  </div>
-  <div class="grid-container" id="gridContainer">
-   <div class="grid-item" onclick="openFolder('Dairy')">
-    Dairy
-   </div>
-   <div class="grid-item" onclick="openFolder('Quiz 2')">
-    Quiz 2
-   </div>
-   <div class="grid-item" onclick="openFolder('Happy')">
-    Happy
-   </div>
-   <div class="grid-item" onclick="openFolder('Oral')">
-    Oral
-   </div>
-   <div class="grid-item" onclick="openFolder('My notes')">
-    My notes
-   </div>
-   <div class="grid-item" onclick="openFolder('Quiz note')">
-    Quiz note
-   </div>
-   <div class="grid-item" onclick="openFolder('assignment')">
-    assignment
-   </div>
-  </div>
-  <div class="add-folder-button" onclick="addFolder()">
-   <i class="fas fa-plus">
-   </i>
-  </div>
-  <script>
-   function openSetting() {
+    <div class="grid-container" id="gridContainer">
+        <div class="grid-item" onclick="openFolder('Dairy')">Dairy</div>
+        <div class="grid-item" onclick="openFolder('Quiz 2')">Quiz 2</div>
+        <div class="grid-item" onclick="openFolder('Happy')">Happy</div>
+        <div class="grid-item" onclick="openFolder('Oral')">Oral</div>
+        <div class="grid-item" onclick="openFolder('My notes')">My notes</div>
+        <div class="grid-item" onclick="openFolder('Quiz note')">Quiz note</div>
+        <div class="grid-item" onclick="openFolder('assignment')">assignment</div>
+    </div>
+    <div class="add-folder-button" onclick="addFolder()">
+        <i class="fas fa-plus"></i>
+    </div>
+    <script>
+        function openSetting() {
             alert("Setting function called");
         }
 
@@ -195,22 +201,6 @@
             }
         }
 
-        function searchFolders() {
-            var input, filter, gridContainer, gridItems, i, txtValue;
-            input = document.getElementById("searchInput");
-            filter = input.value.toUpperCase();
-            gridContainer = document.getElementById("gridContainer");
-            gridItems = gridContainer.getElementsByClassName("grid-item");
-            for (i = 0; i < gridItems.length; i++) {
-                txtValue = gridItems[i].textContent || gridItems[i].innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    gridItems[i].style.display = "";
-                } else {
-                    gridItems[i].style.display = "none";
-                }
-            }
-        }
-
         window.onclick = function(event) {
             if (!event.target.matches('.menu-icon, .menu-icon *')) {
                 var dropdown = document.getElementById("dropdownMenu");
@@ -219,6 +209,6 @@
                 }
             }
         }
-  </script>
- </body>
+    </script>
+</body>
 </html>
