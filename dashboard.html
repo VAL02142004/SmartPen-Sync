@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -20,7 +21,7 @@
             border-bottom: 2px solid #ff7f50;
         }
         .search-bar {
-            flex: 1;
+            flex: 0 0 400px; /* Fixed width for the search bar */
             display: flex;
             align-items: center;
             border: 2px solid #ff7f50;
@@ -32,37 +33,38 @@
             outline: none;
             flex: 1;
             padding: 5px;
-        }
-        .search-bar i {
-            color: #ff7f50;
+            border-radius: 20px; /* Rounded corners for input */
         }
         .menu-icon {
-            margin-left: 10px;
             color: #ff7f50;
-            font-size: 24px;
+            font-size: 30px;
             cursor: pointer;
+            position: relative; /* For positioning the dropdown */
+            margin-left: -1000px; /* Space between search bar and menu icon */
         }
-        .menu {
+        .dropdown {
             display: none;
             position: absolute;
-            top: 50px;
-            right: 10px;
+            top: 40px; /* Adjusted for a smaller menu */
+            right: 0;
             background-color: white;
-            border: 2px solid #ff7f50;
+            border: 1px solid #ff7f50;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
         }
-        .menu a {
-            display: block;
-            padding: 10px;
+        .dropdown a {
+            display: flex; /* Changed to flex for better alignment */
+            align-items: center; /* Center the items vertically */
+            padding: 8px 10px; /* Reduced padding for a smaller menu */
             color: #ff7f50;
             text-decoration: none;
-            border-bottom: 1px solid #ff7f50;
+            transition: background-color 0.2s;
         }
-        .menu a:last-child {
-            border-bottom: none;
+        .dropdown a i {
+            margin-right: 5px; /* Space between icon and text */
         }
-        .menu a:hover {
+        .dropdown a:hover {
             background-color: #ffe4c4;
         }
         .grid-container {
@@ -79,14 +81,10 @@
             border-radius: 10px;
             cursor: pointer;
         }
-        .grid-item i {
-            display: block;
-            margin-bottom: 10px;
-        }
         .add-folder-button {
             background-color: #ff7f50;
             color: white;
-            padding: 20px;
+            padding: 15px;
             border-radius: 10px;
             cursor: pointer;
             margin: 20px auto;
@@ -94,33 +92,6 @@
         }
         .add-folder-button i {
             font-size: 24px;
-        }
-        .dropdown {
-            position: absolute;
-            top: 60px;
-            right: 20px;
-            background-color: white;
-            border: 1px solid #ff7f50;
-            border-radius: 5px;
-            padding: 10px;
-            display: none;
-        }
-        .dropdown img {
-            width: 20px;
-            height: 20px;
-            margin-right: 5px;
-        }
-        .dropdown a {
-            display: block;
-            color: #ff7f50;
-            text-decoration: none;
-            margin: 5px 0;
-        }
-        .dropdown a:hover {
-            text-decoration: underline;
-        }
-        .menu-icon:hover + .dropdown, .dropdown:hover {
-            display: block;
         }
     </style>
 </head>
@@ -136,25 +107,23 @@
             <i class="fas fa-bars"></i>
             <div class="dropdown" id="dropdownMenu">
                 <a href="#" onclick="openSetting()">
-                    <img alt="Settings icon" height="20" src="SmartPen-Sync/asset/SEtting.png" width="20"/>
-                    SETTING
+                    <i class="fas fa-cog"></i> SETTING
                 </a>
                 <a href="#" onclick="openProfile()">
-                    <img alt="Profile icon" height="20" src="SmartPen-Sync/asset/PROfile.png" width="20"/>
-                    PROFILE
+                    <i class="fas fa-user"></i> PROFILE
                 </a>
                 <a href="#" onclick="logout()">Log out</a>
             </div>
         </div>
     </div>
     <div class="grid-container" id="gridContainer">
-        <div class="grid-item" onclick="openFolder('Dairy')">Dairy</div>
+        <div class="grid-item" onclick="openFolder('Diary')">Diary</div>
         <div class="grid-item" onclick="openFolder('Quiz 2')">Quiz 2</div>
         <div class="grid-item" onclick="openFolder('Happy')">Happy</div>
         <div class="grid-item" onclick="openFolder('Oral')">Oral</div>
         <div class="grid-item" onclick="openFolder('My notes')">My notes</div>
         <div class="grid-item" onclick="openFolder('Quiz note')">Quiz note</div>
-        <div class="grid-item" onclick="openFolder('assignment')">assignment</div>
+        <div class="grid-item" onclick="openFolder('Assignment')">Assignment</div>
     </div>
     <div class="add-folder-button" onclick="addFolder()">
         <i class="fas fa-plus"></i>
@@ -174,11 +143,7 @@
 
         function toggleDropdown() {
             var dropdown = document.getElementById("dropdownMenu");
-            if (dropdown.style.display === "block") {
-                dropdown.style.display = "none";
-            } else {
-                dropdown.style.display = "block";
-            }
+            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
         }
 
         function openFolder(folderName) {
