@@ -1,165 +1,208 @@
-<html>
-<head>
-    <title>Notes</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <style>
-        body {font-family: Arial, Helvetica, sans-serif;}
-        
-        /* The Modal (background) */
-        .modal {
-          display: none; /* Hidden by default */
-          position: fixed; /* Stay in place */
-          z-index: 1; /* Sit on top */
-          padding-top: 100px; /* Location of the box */
-          right: 0;
-          top: 0;
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Folder Example
+  </title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
         }
-        
-        /* Modal Content */
-        .modal-content {
-          background-color: #fefefe;
-          margin: auto;
-          padding: 20px;
-          border: 1px solid #ff7f50;
-          width: 80%;
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
         }
-        
-        /* The Close Button */
-        .close {
-          color: #aaaaaa;
-          float: right;
-          font-size: 28px;
-          font-weight: bold;
+        .search-bar input {
+            padding: 10px;
+            border: 2px solid #ff7f50;
+            border-radius: 20px 0 0 20px;
+            outline: none;
         }
-        
-        .close:hover,
-        .close:focus {
-          color: #ff7f50;
-          text-decoration: none;
-          cursor: pointer;
+        .search-bar button {
+            padding: 10px;
+            border: 2px solid #ff7f50;
+            border-left: none;
+            background-color: #ff7f50;
+            color: white;
+            border-radius: 0 20px 20px 0;
+            cursor: pointer;
         }
-        </style>
-</head>
-<body style="font-family: Arial, sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; background-color: #fff;">
-    <div style="margin: 20px; display: flex; align-items: center; border: 2px solid #ff7f50; border-radius: 25px; padding: 5px 10px; width: 90%; max-width: 300px;">
-        <input type="text" placeholder="Search" id="searchInput" onkeyup="filterNotes()" style="border: none; outline: none; flex-grow: 1; padding: 5px; font-size: 16px;">
-        <i class="fas fa-search" style="color: #ff7f50; font-size: 20px;"></i>
-          <!-- Trigger/Open The Modal -->
-        <button class="fas fa-bars menu-icon" style="margin-left: 10px; background-color: #fff; border: none;" id="myBtn"></button>
+        .search-bar button i {
+            font-size: 16px;
+        }
+        .menu-icon {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            justify-content: center;
+            margin: 20px;
+        }
+        .grid-item {
+            background-color: #ff7f50;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .grid-item i {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .add-folder-button {
+            background-color: #ff7f50;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 20px auto;
+            width: 50px;
+        }
+        .add-folder-button i {
+            font-size: 24px;
+        }
+        .dropdown {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background-color: white;
+            border: 1px solid #ff7f50;
+            border-radius: 5px;
+            padding: 10px;
+            display: none;
+        }
+        .dropdown img {
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+        }
+        .dropdown a {
+            display: block;
+            color: #ff7f50;
+            text-decoration: none;
+            margin: 5px 0;
+        }
+        .dropdown a:hover {
+            text-decoration: underline;
+        }
+        .menu-icon:hover + .dropdown, .dropdown:hover {
+            display: block;
+        }
+  </style>
+ </head>
+ <body>
+  <div class="search-bar">
+   <input placeholder="Search" type="text"/>
+   <button>
+    <i class="fas fa-search">
+    </i>
+   </button>
+   <div class="menu-icon" onclick="toggleDropdown()">
+    <i class="fas fa-bars">
+    </i>
+    <div class="dropdown" id="dropdownMenu">
+     <a href="#" onclick="openSetting()">
+      <img alt="Settings icon" height="20" src="SmartPen-Sync/asset/SEtting.png" width="20"/>
+      SETTING   
+     </a>
+     <a href="#" onclick="openProfile()">
+      <img alt="Profile icon" height="20" src="SmartPen-Sync/asset/PROfile.png" width="20"/>
+      PROFILE
+     </a>
+     <a href="#" onclick="logout()">
+      Log out
+     </a>
     </div>
-    <div id="notesContainer" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 10px; width: 100%;">
-        <div class="note" style="background-color: #ff7f50; width: 45%; max-width: 100px; height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 10px; color: white; font-weight: bold; text-align: center;">
-            <div class="note-header" style="background-color: #ffa07a; width: 60%; height: 20px; border-radius: 5px; margin-bottom: 10px;"></div>
-            <span class="note-text">Dairy</span>
-        </div>
-        <div class="note" style="background-color: #ff7f50; width: 45%; max-width: 100px; height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 10px; color: white; font-weight: bold; text-align: center;">
-            <div class="note-header" style="background-color: #ffa07a; width: 60%; height: 20px; border-radius: 5px; margin-bottom: 10px;"></div>
-            <span class="note-text">Quiz 2</span>
-        </div>
-        <div class="note" style="background-color: #ff7f50; width: 45%; max-width: 100px; height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 10px; color: white; font-weight: bold; text-align: center;">
-            <div class="note-header" style="background-color: #ffa07a; width: 60%; height: 20px; border-radius: 5px; margin-bottom: 10px;"></div>
-            <span class="note-text">Happy</span>
-        </div>
-        <div class="note" style="background-color: #ff7f50; width: 45%; max-width: 100px; height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 10px; color: white; font-weight: bold; text-align: center;">
-            <div class="note-header" style="background-color: #ffa07a; width: 60%; height: 20px; border-radius: 5px; margin-bottom: 10px;"></div>
-            <span class="note-text">Important</span>
-        </div>
-        <div class="note" style="background-color: #ff7f50; width: 45%; max-width: 100px; height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 10px; color: white; font-weight: bold; text-align: center;">
-            <div class="note-header" style="background-color: #ffa07a; width: 60%; height: 20px; border-radius: 5px; margin-bottom: 10px;"></div>
-            <span class="note-text">Oral</span>
-        </div>
-        <div class="note" style="background-color: #ff7f50; width: 45%; max-width: 100px; height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 10px; color: white; font-weight: bold; text-align: center;">
-            <div class="note-header" style="background-color: #ffa07a; width: 60%; height: 20px; border-radius: 5px; margin-bottom: 10px;"></div>
-            <span class="note-text">My notes</span>
-        </div>
-        <div class="note" style="background-color: #ff7f50; width: 45%; max-width: 100px; height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 10px; color: white; font-weight: bold; text-align: center;">
-            <div class="note-header" style="background-color: #ffa07a; width: 60%; height: 20px; border-radius: 5px; margin-bottom: 10px;"></div>
-            <span class="note-text">Quiz note</span>
-        </div>
-        <div class="note" style="background-color: #ff7f50; width: 45%; max-width: 100px; height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 10px; color: white; font-weight: bold; text-align: center;">
-            <div class="note-header" style="background-color: #ffa07a; width: 60%; height: 20px; border-radius: 5px; margin-bottom: 10px;"></div>
-            <span class="note-text">assignment</span>
-        </div>
-        <div class="note" style="background-color: #ff7f50; width: 45%; max-width: 100px; height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 10px; color: white; font-weight: bold; text-align: center;">
-            <div class="note-header" style="background-color: #ffa07a; width: 60%; height: 20px; border-radius: 5px; margin-bottom: 10px;"></div>
-            <i class="fas fa-plus" style="font-size: 24px; cursor: pointer;" onclick="addNote()"></i>
-        </div>
-    </div>
-    <h2>Modal Example</h2>
+   </div>
+  </div>
+  <div class="grid-container" id="gridContainer">
+   <div class="grid-item" onclick="openFolder('Dairy')">
+    Dairy
+   </div>
+   <div class="grid-item" onclick="openFolder('Quiz 2')">
+    Quiz 2
+   </div>
+   <div class="grid-item" onclick="openFolder('Happy')">
+    Happy
+   </div>
+   <div class="grid-item" onclick="openFolder('Oral')">
+    Oral
+   </div>
+   <div class="grid-item" onclick="openFolder('My notes')">
+    My notes
+   </div>
+   <div class="grid-item" onclick="openFolder('Quiz note')">
+    Quiz note
+   </div>
+   <div class="grid-item" onclick="openFolder('assignment')">
+    assignment
+   </div>
+  </div>
+  <div class="add-folder-button" onclick="addFolder()">
+   <i class="fas fa-plus">
+   </i>
+  </div>
+  <script>
+   function openSetting() {
+            alert("Setting function called");
+        }
 
-   
-    
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-    
-      <!-- Modal content -->
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <div><img src="SmartPen-Sync/asset/SEtting.png" alt="SETTING"></div>
-        <div><img src="SmartPen-Sync/asset/PROfile.png" alt="PROFILE"></div>
-        <div>Log out</div>
-      </div>
-    
-    </div>
-    <script>
-        function filterNotes() {
-            const searchInput = document.getElementById('searchInput').value.toLowerCase();
-            const notes = document.getElementsByClassName('note');
-            
-            for (let i = 0; i < notes.length; i++) {
-                const note = notes[i];
-                const noteText = note.textContent || note.innerText;
-                
-                if (noteText.toLowerCase().indexOf(searchInput) > -1) {
-                    note.style.display = "";
-                } else {
-                    note.style.display = "none";
+        function openProfile() {
+            alert("Profile function called");
+        }
+
+        function logout() {
+            alert("Logout function called");
+        }
+
+        function toggleDropdown() {
+            var dropdown = document.getElementById("dropdownMenu");
+            if (dropdown.style.display === "block") {
+                dropdown.style.display = "none";
+            } else {
+                dropdown.style.display = "block";
+            }
+        }
+
+        function openFolder(folderName) {
+            alert("Opening folder: " + folderName);
+        }
+
+        function addFolder() {
+            var folderName = prompt("Enter folder name:");
+            if (folderName) {
+                var gridContainer = document.getElementById("gridContainer");
+                var newFolder = document.createElement("div");
+                newFolder.className = "grid-item";
+                newFolder.innerText = folderName;
+                newFolder.onclick = function() {
+                    openFolder(folderName);
+                };
+                gridContainer.appendChild(newFolder);
+            } else {
+                alert("Please enter a folder name");
+            }
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.matches('.menu-icon, .menu-icon *')) {
+                var dropdown = document.getElementById("dropdownMenu");
+                if (dropdown.style.display === "block") {
+                    dropdown.style.display = "none";
                 }
             }
         }
-
-        function addNote() {
-            const notesContainer = document.getElementById('notesContainer');
-            const newNote = document.createElement('div');
-            newNote.className = 'note';
-            newNote.style = 'background-color: #ff7f50; width: 45%; max-width: 100px; height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 10px; color: white; font-weight: bold; text-align: center;';
-            newNote.innerHTML = '<div class="note-header" style="background-color: #ffa07a; width: 60%; height: 20px; border-radius: 5px; margin-bottom: 10px;"></div><span class="note-text">New Note</span><i class="fas fa-edit" style="font-size: 16px; cursor: pointer;" onclick="renameNewNote(this)"></i>';
-            notesContainer.appendChild(newNote);
-        }
-
-        function renameNewNote(element) {
-            const noteTextElement = element.previousElementSibling;
-            const newName = prompt("Enter new name for the note:", noteTextElement.textContent);
-            if (newName !== null && newName.trim() !== "") {
-                noteTextElement.textContent = newName;
-                element.onclick = null; // Disable renaming after the first time
-            }
-        }
-        // Get the modal
-var modal = document.getElementById("myModal");
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal 
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-    </script>
-</body>
+  </script>
+ </body>
 </html>
