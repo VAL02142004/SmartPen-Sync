@@ -1,0 +1,208 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Mobile App Interface
+  </title>
+  <style>
+   body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fff;
+        }
+        .container {
+            width: 100%;
+            max-width: 350px; /* Adjusted max width for better fit */
+            height: 100%; /* Full height for phone size */
+            max-height: 700px; /* Adjusted max height for better fit */
+            border: 2px solid #E27D60;
+            border-radius: 20px;
+            padding: 15px;
+            box-sizing: border-box;
+            background-color: #fff;
+            position: relative;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .header img {
+            width: 50px;
+            height: 50px;
+            cursor: pointer; /* Added cursor pointer for clickable icons */
+        }
+        .content {
+            background-color: #FCEEB5;
+            border-radius: 20px;
+            padding: 15px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Added gap for better spacing */
+            flex: 1;
+            overflow-y: auto; /* Added scroll for overflow content */
+        }
+        .content .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .content .item .label {
+            background-color: #E27D60;
+            border-radius: 20px; /* Adjusted border radius for oval shape */
+            color: #fff;
+            padding: 5px 10px; /* Adjusted padding for better fit */
+            flex: 1;
+            text-align: left;
+            white-space: nowrap;
+            overflow: hidden; /* Prevent overflow */
+            text-overflow: ellipsis; /* Add ellipsis for overflow text */
+        }
+        .content .item .buttons {
+            display: flex;
+            gap: 5px;
+        }
+        .content .item button {
+            background-color: #E27D60;
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            padding: 5px 10px; /* Adjusted padding for better fit */
+            cursor: pointer;
+            font-size: 12px; /* Smaller font size for better fit */
+            min-width: 0px; /* Ensured buttons have a minimum width */
+        }
+        .content .item .disable {
+            background-color: #fff;
+            color: #E27D60;
+            border: 2px solid #E27D60;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 10px; /* Added margin for spacing */
+        }
+        .footer button {
+            background-color: #E27D60;
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 14px; /* Adjusted font size */
+            width: 100%; /* Full width for footer button */
+        }
+  </style>
+  <script>
+   function toggleButtons(item, enable) {
+            const enableButton = item.querySelector('.enable');
+            const disableButton = item.querySelector('.disable');
+            if (enable) {
+                enableButton.style.backgroundColor = '#E27D60';
+                enableButton.style.color = '#fff';
+                disableButton.style.backgroundColor = '#fff';
+                disableButton.style.color = '#E27D60';
+            } else {
+                enableButton.style.backgroundColor = '#fff';
+                enableButton.style.color = '#E27D60';
+                disableButton.style.backgroundColor = '#E27D60';
+                disableButton.style.color = '#fff';
+            }
+        }
+
+        function checkProfile() {
+            alert("Profile checked!");
+        }
+
+        function logout() {
+            alert("Logged out!");
+        }
+
+        function goHome() {
+            alert("Going back to Dashboard!");
+        }
+  </script>
+ </head>
+ <body>
+  <div class="container">
+   <div class="header">
+    <img src="SmartPen-Sync/asset/Home.png" alt="Home icon" height="25" onclick="goHome()" src="https://storage.googleapis.com/a1aa/image/shAlePpt3vUgWKOk9OdkLmJT6FVOcAV13wvfbamzVS0lFW2TA.jpg" width="25"/>
+    <img src="SmartPen-Sync/asset/SETTINGS.png" alt="Settings icon" height="25" src="https://storage.googleapis.com/a1aa/image/aIeP5A0X2swGLaPlJwPlyOJXpV3uaJegea3dn2996ENJLssnA.jpg" width="25"/>
+   </div>
+   <div class="content">
+    <div class="item">
+     <div class="label">
+      Profile
+     </div>
+     <button onclick="checkProfile()">
+      Check
+     </button>
+    </div>
+    <div class="item">
+     <div class="label">
+      Share File
+     </div>
+     <div class="buttons">
+      <button class="enable" onclick="toggleButtons(this.parentElement.parentElement, true)">
+       Enable
+      </button>
+      <button class="disable" onclick="toggleButtons(this.parentElement.parentElement, false)">
+       Disable
+      </button>
+     </div>
+    </div>
+    <div class="item">
+     <div class="label">
+      Offline
+     </div>
+     <div class="buttons">
+      <button class="enable" onclick="toggleButtons(this.parentElement.parentElement, true)">
+       Enable
+      </button>
+      <button class="disable" onclick="toggleButtons(this.parentElement.parentElement, false)">
+       Disable
+      </button>
+     </div>
+    </div>
+    <div class="item">
+     <div class="label">
+      Data Privacy
+     </div>
+     <div class="buttons">
+      <button class="enable" onclick="toggleButtons(this.parentElement.parentElement, true)">
+       Enable
+      </button>
+      <button class="disable" onclick="toggleButtons(this.parentElement.parentElement, false)">
+       Disable
+      </button>
+     </div>
+    </div>
+    <div class="item">
+     <div class="label">
+      Tag &amp; Comment
+     </div>
+     <div class="buttons">
+      <button class="enable" onclick="toggleButtons(this.parentElement.parentElement, true)">
+       Enable
+      </button>
+      <button class="disable" onclick="toggleButtons(this.parentElement.parentElement, false)">
+       Disable
+      </button>
+     </div>
+    </div>
+   </div>
+   <div class="footer">
+    <button onclick="logout()">
+     Log Out
+    </button>
+   </div>
+  </div>
+ </body>
+</html>
