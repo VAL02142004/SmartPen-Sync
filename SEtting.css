@@ -1,0 +1,112 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #fff;
+}
+
+.container {
+    width: 100%;
+    max-width: 350px; /* Adjusted max width for better fit */
+    height: 100%; /* Full height for phone size */
+    max-height: 700px; /* Adjusted max height for better fit */
+    border: 2px solid #E27D60;
+    border-radius: 20px;
+    padding: 15px;
+    box-sizing: border-box;
+    background-color: #fff;
+    position: relative;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.header img {
+    width: 25px;
+    height: 25px;
+    cursor: pointer; /* Added cursor pointer for clickable icons */
+}
+
+.content {
+    background-color: #FCEEB5;
+    border-radius: 20px;
+    padding: 15px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Added gap for better spacing */
+    flex: 1;
+    overflow-y: auto; /* Added scroll for overflow content */
+}
+
+.content .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px; /* Added margin for better spacing */
+}
+
+.content .item:last-child {
+    margin-bottom: 0; /* Remove margin for the last item */
+}
+
+.content .item .label {
+    background-color: #E27D60;
+    border-radius: 20px; /* Adjusted border radius for oval shape */
+    color: #fff;
+    padding: 5px 10px; /* Adjusted padding for better fit */
+    flex: 1;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden; /* Prevent overflow */
+    text-overflow: ellipsis; /* Add ellipsis for overflow text */
+    display: flex;
+    align-items: center; /* Center align text vertically */
+}
+
+.content .item .buttons {
+    display: flex;
+    gap: 10px; /* Adjusted gap for better spacing between buttons */
+}
+
+.content .item button {
+    background-color: #E27D60;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    padding: 5px 10px; /* Adjusted padding for better fit */
+    cursor: pointer;
+    font-size: 12px; /* Smaller font size for better fit */
+    min-width: 60px; /* Ensured buttons have a minimum width */
+}
+
+.content .item .disable {
+    background-color: #fff;
+    color: #E27D60;
+    border: 2px solid #E27D60;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 10px; /* Added margin for spacing */
+}
+
+.footer button {
+    background-color: #E27D60;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-size: 14px; /* Adjusted font size */
+    width: 100%; /* Full width for footer button */
+}
