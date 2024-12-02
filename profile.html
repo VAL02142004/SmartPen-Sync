@@ -1,0 +1,99 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Form Page
+  </title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background-color: #fff;
+            border: 2px solid #f28b61;
+            border-radius: 20px;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+        .container img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        .container label {
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+            color: #f28b61;
+            font-weight: bold;
+        }
+        .container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #f28b61;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+        .container button {
+            background-color: #f28b61;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        #profile-pic-input {
+            display: none;
+        }
+  </style>
+ </head>
+ <body>
+  <div class="container">
+   <img alt="User icon" id="profile-pic" src="https://placehold.co/50x50" onclick="document.getElementById('profile-pic-input').click();"/>
+   <input id="profile-pic-input" type="file" accept="image/*" onchange="loadFile(event)"/>
+   <form>
+    <label for="email">
+     Email:
+    </label>
+    <input id="email" name="email" type="email"/>
+    <label for="username">
+     Username:
+    </label>
+    <input id="username" name="username" type="text"/>
+    <label for="password">
+     Password:
+    </label>
+    <input id="password" name="password" type="password"/>
+    <label for="dob">
+     Date of Birth:
+    </label>
+    <input id="dob" name="dob" type="date"/>
+    <label for="contact">
+     Contact:
+    </label>
+    <input id="contact" name="contact" type="text"/>
+    <button type="submit">
+     DONE
+    </button>
+   </form>
+  </div>
+  <script>
+   function loadFile(event) {
+            var image = document.getElementById('profile-pic');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        }
+  </script>
+ </body>
+</html>
