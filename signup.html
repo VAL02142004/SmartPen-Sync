@@ -1,7 +1,52 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SmartPen Sync - Sign Up</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0; /* Light background color */
+            font-family: Arial, sans-serif; /* Set a default font */
+        }
+        .signup-container {
+            border: 2px solid #f28b82;
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+            background-color: #fff; /* White background for the form */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            text-align: center;
+        }
+        input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #f28b82;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        button {
+            width: 50%;
+            padding: 10px;
+            background-color: #f28b82;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s; /* Smooth transition for hover effect */
+        }
+        button:hover {
+            background-color: #d16f6f; /* Darker shade on hover */
+        }
+    </style>
     <script>
         function signUp() {
             const email = document.getElementById('email').value;
@@ -21,14 +66,14 @@
     </script>
 </head>
 <body>
-    <div style="border: 2px solid #ff7f00; border-radius: 10px; padding: 20px; width: 300px; background-color: #fff; text-align: center;">
+    <div class="signup-container">
         <img alt="Logo with a pencil and text 'SMARTPEN SYNC' with a tagline 'Write Your Story'" height="100" src="asset/SMARTPEN_SYNC-removebg-preview 1 (1).png" width="300"/>
-        <input id="email" placeholder="Email" type="email" style="width: calc(100% - 20px); padding: 10px; margin: 10px 0; border: 2px solid #ff7f00; border-radius: 5px; font-size: 14px;"/>
-        <input id="username" placeholder="Username" type="text" style="width: calc(100% - 20px); padding: 10px; margin: 10px 0; border: 2px solid #ff7f00; border-radius: 5px; font-size: 14px;"/>
-        <input id="password" placeholder="Password" type="password" style="width: calc(100% - 20px); padding: 10px; margin: 10px 0; border: 2px solid #ff7f00; border-radius: 5px; font-size: 14px;"/>
-        <input id="confirm-password" placeholder="Confirm Password" type="password" style="width: calc(100% - 20px); padding: 10px; margin: 10px 0; border: 2px solid #ff7f00; border-radius: 5px; font-size: 14px;"/>
-        <input id="contact" placeholder="Contact" type="text" style="width: calc(100% - 20px); padding: 10px; margin: 10px 0; border: 2px solid #ff7f00; border-radius: 5px; font-size: 14px;"/>
-        <button onclick="signUp()" style="width: 50%; padding: 10px; background-color: #ff7f00; border: none; border-radius: 5px; color: #fff; font-size: 14px; cursor: pointer;">Sign up</button>
+        <input id="email" placeholder="Email" type="email"/>
+        <input id="username" placeholder="Username" type="text"/>
+        <input id="password" placeholder="Password" type="password"/>
+        <input id="confirm-password" placeholder="Confirm Password" type="password"/>
+        <input id="contact" placeholder="Contact" type="text"/>
+        <button onclick="signUp()">Sign up</button>
     </div>
 </body>
 </html>
