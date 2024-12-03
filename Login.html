@@ -1,33 +1,36 @@
 <html>
- <head>
-  <title>
-   SmartPen Sync
-  </title>
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <link href="andriod.xml">
- </head>
- <body>
-  <div class="logo">
-   <img src="asset/SMARTPEN_SYNC-removebg-preview 1 (1).png " alt="SmartPen Sync Logo with a pen icon and the text 'SMARTPEN SYNC' in gradient colors, and the tagline 'Write Your Story' below it" height="100" src="https://storage.googleapis.com/a1aa/image/CYAd2LUPZ0qCIdVuwGUcsnKSVtnWuETxDe2cDEbOB4tfhdvTA.jpg" width="300"/>
+<head>
+    <title>SmartPen Sync</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <script>
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            alert(`Logging in with Username: ${username} and Password: ${password}`);
+        }
 
-</div>
-  <div class="container">
-   <label for="username">
-    Username:
-   </label>
-   <input id="username" name="username" type="text"/>
-   <label for="password">
-    Password:
-   </label>
-   <input id="password" name="password" type="password"/>
-   <div>
-    <button type="button">
-     Login
-    </button>
-    <button type="button">
-     Sign Up
-    </button>
-   </div>
-  </div>
- </body>
+        function signUp() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            alert(`Signing up with Username: ${username} and Password: ${password}`);
+        }
+    </script>
+</head>
+<body style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; font-family: Arial, sans-serif; background-color: #fff;">
+    <div class="container" style="text-align: center;">
+        <div class="logo" style="margin-bottom: 20px;">
+            <img alt="SmartPen Sync logo with a pencil icon and the text 'SMARTPEN SYNC' with a tagline 'Write Your Story'" height="100" src="asset/SMARTPEN_SYNC-removebg-preview 1 (1).png" width="300"/>
+        </div>  
+        <div class="form-container" style="border: 2px solid #f28b82; border-radius: 10px; padding: 20px; width: 300px;">
+            <label for="username" style="display: block; margin-bottom: 10px; font-size: 18px; color: #f28b82;">Username:</label>
+            <input id="username" name="username" type="text" style="width: calc(100% - 20px); padding: 10px; margin-bottom: 20px; border: 2px solid #f28b82; border-radius: 5px; font-size: 16px;"/>
+            <label for="password" style="display: block; margin-bottom: 10px; font-size: 18px; color: #f28b82;">Password:</label>
+            <input id="password" name="password" type="password" style="width: calc(100% - 20px); padding: 10px; margin-bottom: 20px; border: 2px solid #f28b82; border-radius: 5px; font-size: 16px;"/>
+            <div>
+                <button onclick="login()" type="button" style="width: 45%; padding: 10px; margin: 5px; border: none; border-radius: 5px; font-size: 16px; color: #fff; background-color: #f28b82; cursor: pointer;">Login</button>
+                <button onclick="signUp()" type="button" style="width: 45%; padding: 10px; margin: 5px; border: none; border-radius: 5px; font-size: 16px; color: #fff; background-color: #f28b82; cursor: pointer;">Sign Up</button>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
