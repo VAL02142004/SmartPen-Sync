@@ -1,13 +1,12 @@
+<!DOCTYPE html>
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   Form Page
-  </title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <style>
-   body {
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Form Page</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <style>
+        body {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -57,43 +56,77 @@
         #profile-pic-input {
             display: none;
         }
-  </style>
- </head>
- <body>
-  <div class="container">
-   <img alt="User icon" id="profile-pic" src="https://placehold.co/50x50" onclick="document.getElementById('profile-pic-input').click();"/>
-   <input id="profile-pic-input" type="file" accept="image/*" onchange="loadFile(event)"/>
-   <form>
-    <label for="email">
-     Email:
-    </label>
-    <input id="email" name="email" type="email"/>
-    <label for="username">
-     Username:
-    </label>
-    <input id="username" name="username" type="text"/>
-    <label for="password">
-     Password:
-    </label>
-    <input id="password" name="password" type="password"/>
-    <label for="dob">
-     Date of Birth:
-    </label>
-    <input id="dob" name="dob" type="date"/>
-    <label for="contact">
-     Contact:
-    </label>
-    <input id="contact" name="contact" type="text"/>
-    <button type="submit">
-     DONE
-    </button>
-   </form>
-  </div>
-  <script>
-   function loadFile(event) {
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img alt="User  icon" id="profile-pic" src="https://placehold.co/50x50" onclick="document.getElementById('profile-pic-input').click();"/>
+        <input id="profile-pic-input" type="file" accept="image/*" onchange="loadFile(event)"/>
+        <form id="profile-form">
+            <label for="email">Email:</label>
+            <input id="email" name="email" type="email" required/>
+            <label for="username">Username:</label>
+            <input id="username" name="username" type="text" required/>
+            <label for="password">Password:</label>
+            <input id="password" name="password" type="password" required/>
+            <label for="dob">Date of Birth:</label>
+            <input id="dob" name="dob" type="date" required/>
+            <label for="contact">Contact:</label>
+            <input id="contact" name="contact" type="text" required/>
+            <button type="submit">DONE</button>
+        </form>
+    </div>
+    <script>
+        // Load saved profile data from localStorage
+        window.onload = function() {
+            loadProfile();
+        };
+
+        function loadProfile() {
+            const profileData = JSON.parse(localStorage.getItem('profileData'));
+            if (profileData) {
+                document.getElementById('email').value = profileData.email || '';
+                document.getElementById('username').value = profileData.username || '';
+                document.getElementById('password').value = profileData.password || '';
+                document.getElementById('dob').value = profileData.dob || '';
+                document.getElementById('contact').value = profileData.contact || '';
+                if (profileData.profilePic) {
+                    document.getElementById('profile-pic').src = profileData.profilePic;
+                }
+            }
+        }
+
+        function loadFile(event) {
             var image = document.getElementById('profile-pic');
             image.src = URL.createObjectURL(event.target.files[0]);
+            // Save the new profile picture URL to localStorage
+            localStorage.setItem('profileData', JSON.stringify({
+                ...getProfileData(),
+                profilePic: image.src
+            }));
         }
-  </script>
- </body>
+
+        document.getElementById('profile-form').addEventListener('input', function() {
+            // Save profile data to localStorage on input change
+            localStorage.setItem('profileData', JSON.stringify(getProfileData()));
+        });
+
+        function getProfileData() {
+            return {
+                email: document.getElementById('email').value,
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value,
+                dob: document.getElementById('dob').value,
+                contact: document.getElementById('contact').value
+            };
+        }
+
+        document.getElementById('profile-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            // Optionally, you can perform validation here before redirecting
+            // Redirect to the dashboard
+            window.location.href = "dashboard.html"; // Change to your actual dashboard page URL
+        });
+    </script>
+</body>
 </html>
