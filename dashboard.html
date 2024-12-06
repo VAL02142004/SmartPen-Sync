@@ -116,29 +116,29 @@
             </div>
         </div>
     </div>
-    <div class="grid-container" id="gridContainer">
-        <div class="grid-item" onclick="openFolder('Diary')">Diary</div>
-        <div class="grid-item" onclick="openFolder('Quiz 2')">Quiz 2</div>
-        <div class="grid-item" onclick="openFolder('Happy')">Happy</div>
-        <div class="grid-item" onclick="openFolder('Oral')">Oral</div>
-        <div class="grid-item" onclick="openFolder('My notes')">My notes</div>
-        <div class="grid-item" onclick="openFolder('Quiz note')">Quiz note</div>
-        <div class="grid-item" onclick="openFolder('Assignment')">Assignment</div>
-    </div>
+    <div class="grid-container" id="gridContainer">    </div>
     <div class="add-folder-button" onclick="addFolder()">
         <i class="fas fa-plus"></i>
     </div>
     <script>
+        // Load existing folders from localStorage when the page loads
+        window.onload = function() {
+            loadFolders();
+        };
+
         function openSetting() {
-            alert("Setting function called");
+            // Redirect to the settings page
+            window.location.href = "Setti.html"; // Change to your actual settings page URL
         }
 
         function openProfile() {
-            alert("Profile function called");
+            // Redirect to the profile page
+            window.location.href = "profile.html"; // Change to your actual profile page URL
         }
 
         function logout() {
-            alert("Logout function called");
+            // Redirect to the login page
+            window.location.href = "login.html"; // Change to your actual login page URL
         }
 
         function toggleDropdown() {
@@ -147,23 +147,49 @@
         }
 
         function openFolder(folderName) {
-            alert("Opening folder: " + folderName);
+            // Redirect to the notes page for the specific folder
+            window.location.href = "note.html?folder=" + encodeURIComponent(folderName); // Change to your actual notes page URL
         }
 
         function addFolder() {
             var folderName = prompt("Enter folder name:");
             if (folderName) {
-                var gridContainer = document.getElementById("gridContainer");
-                var newFolder = document.createElement("div");
-                newFolder.className = "grid-item";
-                newFolder.innerText = folderName;
-                newFolder.onclick = function() {
-                    openFolder(folderName);
-                };
-                gridContainer.appendChild(newFolder);
+                // Save the folder name to localStorage
+                saveFolder(folderName);
+                // Add the folder to the grid
+                addFolderToGrid(folderName);
             } else {
                 alert("Please enter a folder name");
             }
+        }
+
+        function saveFolder(folderName) {
+            // Get existing folders from localStorage
+            let folders = JSON.parse(localStorage.getItem('folders')) || [];
+            // Add the new folder if it doesn't already exist
+            if (!folders.includes(folderName)) {
+                folders.push(folderName);
+                localStorage.setItem('folders', JSON.stringify(folders));
+            }
+        }
+
+        function loadFolders() {
+            // Load folders from localStorage and display them
+            let folders = JSON.parse(localStorage.getItem('folders')) || [];
+            folders.forEach(folder => {
+                addFolderToGrid(folder);
+            });
+        }
+
+        function addFolderToGrid(folderName) {
+            var gridContainer = document.getElementById("gridContainer");
+            var newFolder = document.createElement("div");
+            newFolder.className = "grid-item";
+            newFolder.innerText = folderName;
+            newFolder.onclick = function() {
+                openFolder(folderName);
+            };
+            gridContainer.appendChild(newFolder);
         }
 
         window.onclick = function(event) {
