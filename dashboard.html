@@ -98,7 +98,7 @@
 <body>
     <div class="header">
         <div class="search-bar">
-            <input placeholder="Search" type="text"/>
+            <input id="searchInput" placeholder="Search" type="text" oninput="filterFolders()"/>
             <button>
                 <i class="fas fa-search"></i>
             </button>
@@ -116,13 +116,14 @@
             </div>
         </div>
     </div>
-    <div class="grid-container" id="gridContainer">    </div>
+    <div class="grid-container" id="gridContainer"></div>
     <div class="add-folder-button" onclick="addFolder()">
         <i class="fas fa-plus"></i>
     </div>
     <script>
-        // Load existing folders from localStorage when the page loads
-        window.onload = function() {
+        // Load existing folders from localStorage
+                // Load existing folders from localStorage when the page loads
+                window.onload = function() {
             loadFolders();
         };
 
@@ -190,6 +191,21 @@
                 openFolder(folderName);
             };
             gridContainer.appendChild(newFolder);
+        }
+
+        function filterFolders() {
+            var input = document.getElementById("searchInput").value.toLowerCase();
+            var gridItems = document.getElementsByClassName("grid-item");
+
+            // Loop through all grid items and hide those that don't match the search query
+            for (var i = 0; i < gridItems.length; i++) {
+                var folderName = gridItems[i].innerText.toLowerCase();
+                if (folderName.includes(input)) {
+                    gridItems[i].style.display = ""; // Show the item
+                } else {
+                    gridItems[i].style.display = "none"; // Hide the item
+                }
+            }
         }
 
         window.onclick = function(event) {
