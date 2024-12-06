@@ -1,107 +1,94 @@
+// Load existing folders from localStorage when the page loads
+window.onload = function() {
+    loadFolders();
+};
 
-javascript
-document.addEventListener("DOMContentLoaded", function() {
-    // Create and style the search bar
-    const searchBar = document.createElement('div');
-    searchBar.style = 'margin: 20px; display: flex; align-items: center; border: 2px solid #ff7f50; border-radius: 25px; padding: 5px 10px; width: 90%; max-width: 300px;';
-    
-    const searchInput = document.createElement('input');
-    searchInput.type = 'text';
-    searchInput.placeholder = 'Search';
-    searchInput.id = 'searchInput';
-    searchInput.style = 'border: none; outline: none; flex-grow: 1; padding: 5px; font-size: 16px;';
-    searchInput.onkeyup = filterNotes;
-    
-    const searchIcon = document.createElement('i');
-    searchIcon.className = 'fas fa-search';
-    searchIcon.style = 'color: #ff7f50; font-size: 20px;';
-    
-    const menuIcon = document.createElement('i');
-    menuIcon.className = 'fas fa-bars menu-icon';
-    menuIcon.style = 'margin-left: 10px;';
-    
-    searchBar.appendChild(searchInput);
-    searchBar.appendChild(searchIcon);
-    searchBar.appendChild(menuIcon);
-    document.body.appendChild(searchBar);
-    
-    // Create and style the notes container
-    const notesContainer = document.createElement('div');
-    notesContainer.id = 'notesContainer';
-    notesContainer.style = 'display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 10px; width: 100%;';
-    document.body.appendChild(notesContainer);
-    
-    // Function to create a note
-    function createNote(text) {
-        const note = document.createElement('div');
-        note.className = 'note';
-        note.style = 'background-color: #ff7f50; width: 45%; max-width: 100px; height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 10px; color: white; font-weight: bold; text-align: center;';
-        
-        const noteHeader = document.createElement('div');
-        noteHeader.className = 'note-header';
-        noteHeader.style = 'background-color: #ffa07a; width: 60%; height: 20px; border-radius: 5px; margin-bottom: 10px;';
-        
-        const noteText = document.createElement('span');
-        noteText.className = 'note-text';
-        noteText.textContent = text;
-        
-        note.appendChild(noteHeader);
-        note.appendChild(noteText);
-        
-        return note;
+function openSetting() {
+    // Redirect to the settings page
+    window.location.href = "Setti.html"; // Change to your actual settings page URL
+}
+
+function openProfile() {
+    // Redirect to the profile page
+    window.location.href = "profile.html"; // Change to your actual profile page URL
+}
+
+function logout() {
+    // Redirect to the login page
+    window.location.href = "login.html"; // Change to your actual login page URL
+}
+
+function toggleDropdown() {
+    var dropdown = document.getElementById("dropdownMenu");
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+}
+
+function openFolder(folderName) {
+    // Redirect to the notes page for the specific folder
+    window.location.href = "note.html?folder=" + encodeURIComponent(folderName); // Change to your actual notes page URL
+}
+
+function addFolder() {
+    var folderName = prompt("Enter folder name:");
+    if (folderName) {
+        // Save the folder name to localStorage
+        saveFolder(folderName);
+        // Add the folder to the grid
+        addFolderToGrid(folderName);
+    } else {
+        alert("Please enter a folder name");
     }
-    
-    // Add initial notes
-    const initialNotes = ['Dairy', 'Quiz 2', 'Happy', 'Important', 'Oral', 'My notes', 'Quiz note', 'assignment'];
-    initialNotes.forEach(noteText => {
-        notesContainer.appendChild(createNote(noteText));
+}
+
+function saveFolder(folderName) {
+    // Get existing folders from localStorage
+    let folders = JSON.parse(localStorage.getItem('folders')) || [];
+    // Add the new folder if it doesn't already exist
+    if (!folders.includes(folderName)) {
+        folders.push(folderName);
+        localStorage.setItem('folders', JSON.stringify(folders));
+    }
+}
+
+function loadFolders() {
+    // Load folders from localStorage and display them
+    let folders = JSON.parse(localStorage.getItem('folders')) || [];
+    folders.forEach(folder => {
+        addFolderToGrid(folder);
     });
-    
-    // Add the plus icon note
-    const plusNote = createNote('');
-    const plusIcon = document.createElement('i');
-    plusIcon.className = 'fas fa-plus';
-    plusIcon.style = 'font-size: 24px; cursor: pointer;';
-    plusIcon.onclick = addNote;
-    plusNote.appendChild(plusIcon);
-    notesContainer.appendChild(plusNote);
-    
-    // Function to filter notes
-    function filterNotes() {
-        const searchInput = document.getElementById('searchInput').value.toLowerCase();
-        const notes = document.getElementsByClassName('note');
-        
-        for (let i = 0; i < notes.length; i++) {
-            const note = notes[i];
-            const noteText = note.textContent || note.innerText;
-            
-            if (noteText.toLowerCase().indexOf(searchInput) > -1) {
-                note.style.display = "";
-            } else {
-                note.style.display = "none";
-            }
+}
+
+function addFolderToGrid(folderName) {
+    var gridContainer = document.getElementById("gridContainer");
+    var newFolder = document.createElement("div");
+    newFolder.className = "grid-item";
+    newFolder.innerText = folderName;
+    newFolder.onclick = function() {
+        openFolder(folderName);
+    };
+    gridContainer.appendChild(newFolder);
+}
+
+function filterFolders() {
+    var input = document.getElementById("searchInput").value.toLowerCase();
+    var gridItems = document.getElementsByClassName("grid-item");
+
+    // Loop through all grid items and hide those that don't match the search query
+    for (var i = 0; i < gridItems.length; i++) {
+        var folderName = gridItems[i].innerText.toLowerCase();
+        if (folderName.includes(input)) {
+            gridItems[i].style.display = ""; // Show the item
+        } else {
+            gridItems[i].style.display = "none"; // Hide the item
         }
     }
-    
-    // Function to add a new note
-    function addNote() {
-        const newNote = createNote('New Note');
-        const editIcon = document.createElement('i');
-        editIcon.className = 'fas fa-edit';
-        editIcon.style = 'font-size: 16px; cursor: pointer;';
-        editIcon.onclick = renameNewNote;
-        newNote.appendChild(editIcon);
-        notesContainer.insertBefore(newNote, plusNote);
-    }
-    
-    // Function to rename a new note
-    function renameNewNote() {
-        const noteTextElement = this.previousElementSibling;
-        const newName = prompt("Enter new name for the note:", noteTextElement.textContent);
-        if (newName !== null && newName.trim() !== "") {
-            noteTextElement.textContent = newName;
-            this.onclick = null; // Disable renaming after the first time
+}
+
+window.onclick = function(event) {
+    if (!event.target.matches('.menu-icon, .menu-icon *')) {
+        var dropdown = document.getElementById("dropdownMenu");
+        if (dropdown.style.display === "block") {
+            dropdown.style.display = "none";
         }
     }
-});
-``
+}
