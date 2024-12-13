@@ -8,7 +8,6 @@ body {
     height: 100vh;
     overflow: hidden;
 }
-
 .header {
     display: flex;
     align-items: center;
@@ -16,7 +15,6 @@ body {
     border-bottom: 2px solid #ff7f50;
     position: relative;
 }
-
 .search-bar {
     flex: 1;
     display: flex;
@@ -25,25 +23,21 @@ body {
     border-radius: 25px;
     padding: 5px 10px;
 }
-
 .search-bar input {
     border: none;
     outline: none;
     flex: 1;
     padding: 5px;
 }
-
 .search-bar i {
     color: #ff7f50;
 }
-
 .menu-icon {
     margin-left: 10px;
     color: #ff7f50;
     font-size: 24px;
     cursor: pointer;
 }
-
 .menu {
     display: none;
     position: absolute;
@@ -54,7 +48,6 @@ body {
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-
 .menu a {
     display: block;
     padding: 10px;
@@ -62,26 +55,21 @@ body {
     text-decoration: none;
     border-bottom: 1px solid #ff7f50;
 }
-
 .menu a:last-child {
     border-bottom: none;
 }
-
 .menu a:hover {
     background-color: #ffe4c4;
 }
-
 .sidebar {
     width: 50px;
     padding: 10px;
     border-right: 2px solid #ff7f50;
 }
-
 .sidebar i {
     color: #ff7f50;
     font-size: 24px;
 }
-
 .content {
     padding: 20px;
     background-color: #ffe4c4;
@@ -93,19 +81,16 @@ body {
     justify-content: center;
     align-items: center;
 }
-
 .footer {
     text-align: right;
     padding: 10px;
     color: #d3d3d3;
 }
-
 .container {
     display: flex;
     flex: 1;
     overflow: hidden;
 }
-
 @media (max-width: 600px) {
     .container {
         flex-direction: column;
@@ -116,7 +101,6 @@ body {
         border-bottom: 2px solid #ff7f50;
     }
 }
-
 .note {
     padding: 10px;
     border: 2px solid #ff7f50;
@@ -128,7 +112,6 @@ body {
     flex-direction: column;
     flex: 1;
 }
-
 .note textarea {
     width: 100%;
     flex: 1;
@@ -137,7 +120,6 @@ body {
     box-sizing: border-box;
     resize: none;
 }
-
 .note button {
     margin-top: 10px;
     padding: 10px 20px;
