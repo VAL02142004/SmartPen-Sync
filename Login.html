@@ -28,8 +28,8 @@
         }
 
         function forgot() {
-            const username = document.getElementById('username').value;
-            alert(`Resetting password for Username: ${username}. Please check your email for further instructions.`);
+            // Redirect to the forgot password page
+            window.location.href = 'forgot.html'; // Change 'forgot.html' to the actual path of your forgot password page
         }
     </script>
 </head>
@@ -48,7 +48,7 @@
                 <button onclick="signUp()" type="button" style="width: 45%; padding: 10px; margin: 5px; border: none; border-radius: 5px; font-size: 16px; color: #fff; background-color: #f28b82; cursor: pointer;">Sign Up</button>
             </div>
             <div style="margin-top: 10px;">
-                <button onclick="forgot()" type="button" style="width: 100%; padding: 10px; margin-top: 10px; border: none; border-radius: 5px; font-size: 16px; color: #fff; background-color: #f28b82; cursor: pointer;">Forgot Username/Password?</button>
+             <button onclick="forgot()" type="button" style="width: 100%; padding: 10px; margin-top: 10px; border: none; border-radius: 5px; font-size: 16px; color: #fff; background-color: #f28b82; cursor: pointer;">Forgot Username/Password?</button>
             </div>
         </div>
     </div>
