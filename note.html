@@ -2,138 +2,7 @@
 <head>
     <title>Mobile App</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            overflow: hidden;
-        }
-        .header {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            border-bottom: 2px solid #ff7f50;
-            position: relative;
-        }
-        .search-bar {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            border: 2px solid #ff7f50;
-            border-radius: 25px;
-            padding: 5px 10px;
-        }
-        .search-bar input {
-            border: none;
-            outline: none;
-            flex: 1;
-            padding: 5px;
-        }
-        .search-bar i {
-            color: #ff7f50;
-        }
-        .menu-icon {
-            margin-left: 10px;
-            color: #ff7f50;
-            font-size: 24px;
-            cursor: pointer;
-        }
-        .menu {
-            display: none;
-            position: absolute;
-            top: 50px;
-            right: 10px;
-            background-color: white;
-            border: 2px solid #ff7f50;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .menu a {
-            display: block;
-            padding: 10px;
-            color: #ff7f50;
-            text-decoration: none;
-            border-bottom: 1px solid #ff7f50;
-        }
-        .menu a:last-child {
-            border-bottom: none;
-        }
-        .menu a:hover {
-            background-color: #ffe4c4;
-        }
-        .sidebar {
-            width: 50px;
-            padding: 10px;
-            border-right: 2px solid #ff7f50;
-        }
-        .sidebar i {
-            color: #ff7f50;
-            font-size: 24px;
-        }
-        .content {
-            padding: 20px;
-            background-color: #ffe4c4;
-            border: 2px solid #ff7f50;
-            margin: 10px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .footer {
-            text-align: right;
-            padding: 10px;
-            color: #d3d3d3;
-        }
-        .container {
-            display: flex;
-            flex: 1;
-            overflow: hidden;
-        }
-        @media (max-width: 600px) {
-            .container {
-                flex-direction: column;
-            }
-            .sidebar {
-                width: 100%;
-                border-right: none;
-                border-bottom: 2px solid #ff7f50;
-            }
-        }
-        .note {
-            padding: 10px;
-            border: 2px solid #ff7f50;
-            background-color: #fff8dc;
-            color: #ff7f50;
-            width: 100%;
-            max-width: 1000px;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-        .note textarea {
-            width: 100%;
-            flex: 1;
-            border: 1px solid #ff7f50;
-            padding: 10px;
-            box-sizing: border-box;
-            resize: none;
-        }
-        .note button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            background-color: #ff7f50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="note.css">
 </head>
 <body>
     <div class="header">
@@ -146,11 +15,11 @@
         </div>
         <div class="menu" id="menu">
             <a href="#" onclick="openSetting()">
-                <img alt="Settings icon" height="20" src="https://storage.googleapis.com/a1aa/image/14OrNd47G15iGxSpROCKisGSz8OeOIEj6BrtryctwrofOH2TA.jpg" width="20"/>
+                <i class="fas fa-cog"></i>  
                 SETTING
             </a>
             <a href="#" onclick="openProfile()">
-                <img alt="Profile icon" height="20" src="https://storage.googleapis.com/a1aa/image/0RNHiAhHSyZdI1kvPjTitKx532lT2ZzmQ5m3N9pJOsWvzh9E.jpg" width="20"/>
+                <i class="fas fa-user"></i>
                 PROFILE
             </a>
             <a href="#" onclick="logout()">Log out</a>
@@ -158,7 +27,7 @@
     </div>
     <div class="container">
         <div class="sidebar">
-            <i class="fas fa-home"></i>
+            <a href="dashboard.html"><i class="fas fa-home"></i></a>
         </div>
         <div class="content">
             <div class="note">
@@ -179,10 +48,47 @@
         }
 
         function saveNote() {
-            const noteText = document.getElementById('noteText').value;
+        const noteText = document.getElementById('noteText').value;
+        const folderName = window.location.search.split('=')[1];
+        let notes = JSON.parse(localStorage.getItem(folderName)) || [];
+        if (!notes.includes(noteText)) {
+            notes.push(noteText);
+            localStorage.setItem(folderName, JSON.stringify(notes));
             alert('Note saved: ' + noteText);
+        } else {
+            alert('Note already exists');
         }
+    }
 
+    function loadNote() {
+        const folderName = window.location.search.split('=')[1];
+        const notes = JSON.parse(localStorage.getItem(folderName)) || [];
+        document.getElementById('noteText').value = notes.join('\n');
+    }
+
+    window.onload = function() {
+        const folderName = window.location.search.split('=')[1];
+        loadNote(); // Ensure notes are loaded when the page is accessed
+    }
+
+    function eraseNote() {
+        const confirmErase = confirm("Are you sure you want to erase this note? This action cannot be undone.");
+        
+        if (confirmErase) {
+            const folderName = window.location.search.split('=')[1];
+            localStorage.removeItem(folderName);
+            document.getElementById('noteText').value = '';
+            alert('Note erased successfully.');
+        }
+    }
+
+    document.getElementById('noteText').addEventListener('keydown', function(e) {
+        if (e.key === 'Backspace') {
+            e.preventDefault();
+            eraseNote();
+        }
+    });
+        
         function openSetting() {
             alert('Settings clicked');
         }
