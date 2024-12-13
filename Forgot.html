@@ -1,11 +1,12 @@
-<html>
- <head>
-  <title>
-   SmartPen Sync
-  </title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <style>
-   body {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartPen Sync</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <style>
+        body {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -53,43 +54,50 @@
             width: 100px;
             margin-top: 10px;
         }
-  </style>
-  <script>
-   function confirmAction() {
-            alert("Confirmed!");
+    </style>
+    <script>
+        function confirmAction() {
+            const email = document.getElementById('email').value;
+            const username = document.getElementById('username').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            // Check if passwords match
+            if (newPassword !== confirmPassword) {
+                alert("Passwords do not match. Please try again.");
+                return;
+            }
+
+            // Save to local storage
+            localStorage.setItem('email', email);
+            localStorage.setItem('username', username);
+            localStorage.setItem('password', newPassword);
+
+            // Redirect to the login page
+            window.location.href = 'login.html'; // Change 'login.html' to the actual path of your login page
         }
-  </script>
- </head>
- <body>
-  <div class="container">
-   <img alt="SmartPen Sync Logo" class="logo" height="100" src="asset/SMARTPEN_SYNC-removebg-preview 1 (1).png" width="250"/>
-   <div class="input-group">
-    <label for="email">
-     Email:
-    </label>
-    <input id="email" name="email" type="email"/>
-   </div>
-   <div class="input-group">
-    <label for="username">
-     Username:
-    </label>
-    <input id="username" name="username" type="text"/>
-   </div>
-   <div class="input-group">
-    <label for="new-password">
-     New Password:
-    </label>
-    <input id="new-password" name="new-password" type="password"/>
-   </div>
-   <div class="input-group">
-    <label for="confirm-password">
-     Confirm Password:
-    </label>
-    <input id="confirm-password" name="confirm-password" type="password"/>
-   </div>
-   <button class="btn" onclick="confirmAction()">
-    Confirm
-   </button>
-  </div>
- </body>
+    </script>
+</head>
+<body>
+    <div class="container">
+        <img alt="SmartPen Sync Logo" class="logo" height="100" src="asset/SMARTPEN_SYNC-removebg-preview 1 (1).png" width="250"/>
+        <div class="input-group">
+            <label for="email">Email:</label>
+            <input id="email" name="email" type="email" required/>
+        </div>
+        <div class="input-group">
+            <label for="username">Username:</label>
+            <input id="username" name="username" type="text" required/>
+        </div>
+        <div class="input-group">
+            <label for="new-password">New Password:</label>
+            <input id="new-password" name="new-password" type="password" required/>
+        </div>
+        <div class="input-group">
+            <label for="confirm-password">Confirm Password:</label>
+            <input id="confirm-password" name="confirm-password" type="password" required/>
+        </div>
+        <button class="btn" onclick="confirmAction()">Confirm</button>
+    </div>
+</body>
 </html>
